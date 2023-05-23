@@ -1,0 +1,6 @@
+echo "pickachu"
+echo "voltorb"
+echo "bulbasaur"
+echo "mew"
+echo "zapdos"
+echo "mewto"
