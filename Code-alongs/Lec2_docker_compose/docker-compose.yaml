@@ -11,8 +11,8 @@ services:
     #  - dice_simulator:/app/src
 
     # bind mount
-  volumes:
-    - ./src:app/src
+    volumes:
+      - ./src:/app/src
 
 #volumes:
  # dice_simulator:
