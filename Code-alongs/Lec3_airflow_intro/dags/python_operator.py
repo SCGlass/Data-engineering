@@ -19,10 +19,11 @@ def _save_dice_experiment(task_instance):
     with open(simulation_path / "dice_rolls.txt", "a") as file:
         file.write(f"Dice rolls {datetime.now()} \n")
         file.write(f"{simulation_data} \n\n")
-with DAG(dag_id="dice_simulator", start_date= datetime(2023,8,13)):
+
+with DAG(dag_id="dice_simulator", start_date= datetime(2023,8,13), schedule= "*/30 8 * * *", catchup=True):
     setup_directories = BashOperator(task_id = "setup_directories", bash_command= f"mkdir -p {simulation_path}")
 
-    dice_rolls = PythonOperator(task_id = "dice_roll", python_callable=_dice_rolls, op_args=[10], do_xcom_push = True)
+    dice_rolls = PythonOperator(task_id = "dice_rolls", python_callable=_dice_rolls, op_args=[10], do_xcom_push = True)
 
     _save_dice_experiment = PythonOperator(task_id = "save_dice", python_callable=_save_dice_experiment)
 
