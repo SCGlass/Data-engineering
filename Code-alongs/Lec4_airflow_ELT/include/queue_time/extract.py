@@ -1,3 +1,5 @@
+
+#%%
 from airflow.operators.python import PythonOperator
 import requests, pytz
 
@@ -8,8 +10,17 @@ theme_parks = {"liseberg": 11, "asterix" : 9}
 #TODO: for reader explore timezones yourself to see how it works
 stockholm_timezone = pytz.timezone("Europe/Stockholm")
 
+#%%
+
 def _extract_queue_time(theme_park):
-    pass
+    response = requests.get(f"https://queue-times.com/parks/{theme_park}/queue_times.json")
+
+    if response.status_code == 200:
+        return response.json()["rides"]
+    
+def _transform_stockholm_timezone(task_instance):
+    data = task_instance.xcom_pull(task_ids = "extract_lisberg.extract_queue_time")
+    
 
 
 @task_group(group_id = "extract_liseberg")
