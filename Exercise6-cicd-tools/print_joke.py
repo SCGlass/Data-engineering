@@ -1,4 +1,4 @@
-#%%
+# %%
 import pyjokes
 import random
 
@@ -18,7 +18,7 @@ reactions = [
 
 def get_random_reaction():
     reaction = random.choice(reactions)
-    
+
     return reaction
 
 
@@ -32,4 +32,4 @@ def print_random_joke_and_reaction():
 
 if __name__ == "__main__":
     print_random_joke_and_reaction()
-#%%
+# %%
